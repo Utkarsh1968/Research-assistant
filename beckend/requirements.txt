@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 python-multipart
-fitz
+PyMuPDF
 openai
 sentence-transformers
 faiss-cpu
