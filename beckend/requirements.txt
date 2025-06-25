@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-multipart
+fitz
+openai
+sentence-transformers
+faiss-cpu
+python-dotenv
+google.generativeai
