@@ -47,3 +47,42 @@
 ```bash
 git clone https://github.com/Utkarsh1968/Research-assistant.git
 cd Research-assistant
+```
+---
+### 2. 🖥 Backend (FastAPI)
+
+```bash
+cd beckend
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+**Note :** create .env file
+```env
+GEMINI_API_KEY=your-gemini-key
+```
+---
+
+### 3. 🌐 Frontend (React)
+
+```bash
+cd frontend  # or client if renamed
+npm install
+npm run dev
+```
+---
+## 📁 Project Structure
+
+```bash
+Research-assistant/
+├── beckend/                # FastAPI backend
+│   ├── routes/             # API route handlers
+│   ├── utils/              # Utility functions (e.g., PDF parsing)
+│   └── main.py             # Entry point for FastAPI
+├── src/
+│   ├── components/         # React frontend components
+│   └── App.tsx         # Root React component
+├── requirements.txt        # Python dependencies
+├── README.md               # Project documentation
+```
