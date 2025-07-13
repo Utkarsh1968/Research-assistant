@@ -1,4 +1,4 @@
-import fitz  
+import fitz   # type: ignore
 
 def extract_text_from_pdf(pdf_path):
     doc = fitz.open(pdf_path)

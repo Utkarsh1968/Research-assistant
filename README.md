@@ -1,6 +1,6 @@
 # 🤖 RISA: AI Research Assistant
 
-> **An intelligent assistant that helps summarize, analyze, and question research papers — built using FastAPI & Gemini Pro, with a sleek React frontend.**
+> **An intelligent assistant that helps summarize, analyze, and question research papers — built using FastAPI & LLMs(Gemini and DeepSeek), with a sleek React frontend.**
 
 ---
 
@@ -19,9 +19,9 @@
 
 > Add screenshots in this section after deployment or while running locally.
 
-| Upload PDF | Summary View | Q&A Interface |
+| Upload PDF | Summary View |Challenge ME |
 |------------|---------------|---------------|
-| ![upload](assets/upload.png) | ![summary](assets/summary.png) | ![qa](assets/qa.png) |
+| ![upload](public/asset/image2.png) | ![summary](public/asset/research.png) | ![Challenge Me](public/asset/image3.png) |
 
 ---
 
@@ -33,7 +33,7 @@
 | ⚡️ Uvicorn         | ASGI Server                   |
 | 📚 PyMuPDF (`fitz`) | PDF Parsing                  |
 | 🌐 React + Vite     | Frontend Framework           |
-| 💬 Gemini Pro       | AI Summarization + QA        |
+| 💬 Gemini Pro & DeepSeek V3      | AI Summarization + QA        |
 | 🧪 Pydantic         | Data Validation              |
 | 🧑‍💻 TailwindCSS     | UI Styling                   |
 | 🧾 Render & Vercel  | Deployment Platforms         |

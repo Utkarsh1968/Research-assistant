@@ -7,3 +7,7 @@ sentence-transformers
 faiss-cpu
 python-dotenv
 google.generativeai
+langchain-core
+langchain-huggingface
+langchin-community
+langchain

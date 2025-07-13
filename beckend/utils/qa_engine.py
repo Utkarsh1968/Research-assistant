@@ -1,28 +1,44 @@
-from sentence_transformers import SentenceTransformer, util
+from langchain_core.documents import Document
 import google.generativeai as genai
+from langchain_huggingface import ChatHuggingFace,HuggingFaceEndpoint,HuggingFaceEmbeddings
+from langchain_core.output_parsers import StrOutputParser
+from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 from dotenv import load_dotenv
-# Load SentenceTransformer for semantic similarity
-model = SentenceTransformer('all-MiniLM-L6-v2')
+
+load_dotenv()
 
 # Configure Gemini API
-load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 gemini_model = genai.GenerativeModel("gemini-1.5-flash-latest")
 
+llm = HuggingFaceEndpoint(
+    repo_id="deepseek-ai/DeepSeek-V3",
+    task="text-generation",
+    max_new_tokens=512,
+    huggingfacehub_api_token= os.getenv("HUGGINGFACEHUB_API_TOKEN")   
+)
+model = ChatHuggingFace(llm= llm)
+
+vector_store = Chroma(
+    embedding_function= HuggingFaceEmbeddings(model_name= 'sentence-transformers/all-MiniLM-L6-v2'),
+    collection_name= "Features"
+)
+
+parser = StrOutputParser()
 
 def get_document_chunks(text, chunk_size=500):
-    words = text.split()
-    return [" ".join(words[i:i + chunk_size]) for i in range(0, len(words), chunk_size)]
+    doc = Document(page_content=text)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=50)
+    chunks = splitter.split_documents([doc])  
+    vector_store.add_documents(chunks)  
+    return chunks
 
-
-def get_most_relevant_chunk(question, chunks):
-    question_embedding = model.encode(question, convert_to_tensor=True)
-    chunk_embeddings = model.encode(chunks, convert_to_tensor=True)
-    similarities = util.pytorch_cos_sim(question_embedding, chunk_embeddings)[0]
-    best_index = similarities.argmax().item()
-    return chunks[best_index], best_index
-
+def get_most_relevant_chunk(question):
+    relevant_docs = vector_store.similarity_search(question, k=1)
+    return relevant_docs[0].page_content if relevant_docs else None
 
 def answer_question_with_context(question, context):
     prompt = f"""You are a smart and helpful AI assistant.
@@ -41,8 +57,10 @@ Question:
 {question}
 
 Answer (with explanation of supporting context):"""
-    
-    response = gemini_model.generate_content(prompt)
+    chain = model | parser
+    response = chain.invoke(prompt)
+    if isinstance(response, str):
+        return response.strip()
     return response.text.strip()
 
 
@@ -54,14 +72,17 @@ TASK:
 Summarize the following research paper. Focus on preserving key insights, methods, experiments, and results. Make sure to explain technical parts in simpler language while maintaining correctness.
 
 CONSTRAINT:
-Keep the summary around 250 words. Ensure no critical information is omitted.
+Keep the summary around 300 words. Ensure no critical information is omitted. Provide matrix (if any).
 FORMAT:
 - Title
 - Objective
 - Methodology
 - Results
 - Conclusion.\n\n{text[:2000]}'''
-    response = gemini_model.generate_content(prompt)
+    chain = model | parser
+    response = chain.invoke(prompt)
+    if isinstance(response, str):   
+        return response.strip()
     return response.text.strip()
 
 def generate_questions(document_text, num_questions=3):

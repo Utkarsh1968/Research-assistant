@@ -5,7 +5,7 @@ from utils.qa_engine import get_document_chunks, get_most_relevant_chunk, answer
 import tempfile
 
 router = APIRouter()
-assistant_chunks = []  # renamed
+  
 
 @router.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
@@ -30,7 +30,7 @@ async def upload_file(file: UploadFile = File(...)):
 async def ask_question(question: str = Form(...)):
     global assistant_chunks
     if not assistant_chunks:
-        return {"answer": "⚠️ Please upload a document before asking questions."}
-    best_chunk, _ = get_most_relevant_chunk(question, assistant_chunks)
+        return {"answer": "Please upload a document before asking questions."}
+    best_chunk = get_most_relevant_chunk(question)
     answer = answer_question_with_context(question, best_chunk)
     return {"answer": answer}

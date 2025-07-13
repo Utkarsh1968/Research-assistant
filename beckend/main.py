@@ -5,12 +5,12 @@ from dotenv import load_dotenv
 from routes.challenge import router as challenge_router
 
 
-# ✅ Load environment variables from .env file
+# Load environment variables from .env file
 load_dotenv()
 
 app = FastAPI()
 
-# ✅ React frontend dev server origin (update for production)
+# React frontend dev server origin (update for production)
 origins = [
     "http://localhost:3000",     # React dev
     "http://127.0.0.1:3000",     # Optional alias
@@ -19,7 +19,7 @@ origins = [
     # "https://your-production-site.com"  # Add production if needed
 ]
 
-# ✅ CORS middleware setup
+# CORS middleware setup
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -28,6 +28,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ✅ Register assistant routes
+# Register assistant routes
 app.include_router(assistant_router, prefix="/api/assistant")
 app.include_router(challenge_router, prefix="/api/challenge")
