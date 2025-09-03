@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE = 'https://max25-research_assistant_beckend.hf.space/api';
+const API_BASE = 'https://max25-research-assistant-beckend.hf.space/api';
 
 export const uploadFileToBackend = async (file: File) => {
   const formData = new FormData();
