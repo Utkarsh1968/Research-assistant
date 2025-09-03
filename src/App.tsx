@@ -26,7 +26,7 @@ function App() {
       const formData = new FormData();
       formData.append("file", file); // ✅ must match FastAPI: file: UploadFile = File(...)
 
-      const response = await axios.post("https://max25-research_assistant_beckend.hf.space/api/assistant/upload", formData, {
+      const response = await axios.post("https://max25-research-assistant-beckend.hf.space/api/assistant/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
