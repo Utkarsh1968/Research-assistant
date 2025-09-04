@@ -50,7 +50,7 @@ export default function SummaryDisplay({ summary, fileName, fileContent, isGener
       formData.append("question", userQuestion);
       formData.append("fileContent", fileContent);
 
-      const response = await axios.post("http://localhost:8000/api/assistant/ask", formData, {
+      const response = await axios.post("https://max25-research-assistant-beckend.hf.space/api/assistant/ask", formData, {
         headers: { "Content-Type": "multipart/form-data" }
       });
 

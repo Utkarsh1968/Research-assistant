@@ -78,11 +78,11 @@ FORMAT:
 - Objective
 - Methodology
 - Results
-- Conclusion.\n\n{text[:2000]}'''
-    chain = model | parser
-    response = chain.invoke(prompt)
-    if isinstance(response, str):   
-        return response.strip()
+- Conclusion.
+
+{text[:2000]}
+'''
+    response = gemini_model.generate_content(prompt)
     return response.text.strip()
 
 def generate_questions(document_text, num_questions=3):
