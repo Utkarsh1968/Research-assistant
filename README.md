@@ -3,7 +3,10 @@
 > **An intelligent assistant that helps summarize, analyze, and question research papers — built using FastAPI & LLMs(Gemini and DeepSeek), with a sleek React frontend.**
 
 ---
+## Live Demo
 
+Check out the live project here: [Live Project](https://risa-ai.netlify.app)
+---
 ## 🧠 Features
 
 - 📄 Upload PDF research papers
