@@ -39,7 +39,7 @@ Check out the live project here: [Live Project](https://risa-ai.netlify.app)
 | 💬 Gemini Pro & DeepSeek V3      | AI Summarization + QA        |
 | 🧪 Pydantic         | Data Validation              |
 | 🧑‍💻 TailwindCSS     | UI Styling                   |
-| 🧾 Render & Vercel  | Deployment Platforms         |
+| 🧾 Netlify & HuggingFace Space  | Deployment Platforms         |
 
 ---
 
